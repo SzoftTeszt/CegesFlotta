@@ -21,6 +21,39 @@ namespace CegesAutoNyilvatartas.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CegesAutoNyilvatartas.Models.Auto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Evjarat")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Marka")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Modell")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PeopleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rendszám")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PeopleId");
+
+                    b.ToTable("Auto");
+                });
+
             modelBuilder.Entity("CegesAutoNyilvatartas.Models.People", b =>
                 {
                     b.Property<int>("Id")
@@ -42,6 +75,20 @@ namespace CegesAutoNyilvatartas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Peoples");
+                });
+
+            modelBuilder.Entity("CegesAutoNyilvatartas.Models.Auto", b =>
+                {
+                    b.HasOne("CegesAutoNyilvatartas.Models.People", "People")
+                        .WithMany("Autok")
+                        .HasForeignKey("PeopleId");
+
+                    b.Navigation("People");
+                });
+
+            modelBuilder.Entity("CegesAutoNyilvatartas.Models.People", b =>
+                {
+                    b.Navigation("Autok");
                 });
 #pragma warning restore 612, 618
         }

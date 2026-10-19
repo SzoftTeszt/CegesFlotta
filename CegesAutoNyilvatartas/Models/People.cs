@@ -20,6 +20,9 @@ namespace CegesAutoNyilvatartas.Models
         [StringLength(50)]
         public string Class { get; set; } = "";
 
+        public List<Auto> Autok { get; set; } = new();
+
+
         public override string? ToString()
         {
             return $"{Name} - {Class}";
